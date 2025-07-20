@@ -1,0 +1,71 @@
+# Phase-4
+// File: Program.cs
+using System;
+
+namespace CalculatorPhase4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("--- Project Week 4: Exception Handling Calculator ---");
+            Console.WriteLine("Author: Morgan Moore");
+            Console.WriteLine();
+            Console.WriteLine("Welcome to the Calculator with Exception Handling!");
+            Console.WriteLine("This application divides two numbers. Type 'q' to quit at any time.\n");
+
+            while (true)
+            {
+                double num1 = GetValidNumber("Enter the first number (or 'q' to quit): ");
+                double num2 = GetValidDivisor("Enter the second number (not zero): ");
+
+                double result = num1 / num2;
+                Console.WriteLine($"Result: {num1} / {num2} = {result}\n");
+            }
+        }
+
+        static double GetValidNumber(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+                if (input.Trim().ToLower() == "q")
+                {
+                    ExitApplication();
+                }
+
+                try
+                {
+                    return double.Parse(input);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.\n");
+                }
+            }
+        }
+
+        static double GetValidDivisor(string prompt)
+        {
+            while (true)
+            {
+                double value = GetValidNumber(prompt);
+                if (value == 0)
+                {
+                    Console.WriteLine("Division by zero is not allowed. Please enter a non-zero value.\n");
+                }
+                else
+                {
+                    return value;
+                }
+            }
+        }
+
+        static void ExitApplication()
+        {
+            Console.WriteLine("\nThank you for using the calculator. Goodbye!");
+            Environment.Exit(0);
+        }
+    }
+}
